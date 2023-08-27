@@ -1,32 +1,37 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="hHh lpR fFf">
+    <q-header reveal bordered class="bg-primary text-white">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-toolbar-title>
+          <q-avatar>
+            <q-icon name="img:icons/favicon-128x128.png" size="md" />
+          </q-avatar>
+          BlockStudy
+        </q-toolbar-title>
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <q-avatar class="cursor-pointer">
+          <q-icon name="shopping_cart"></q-icon>
+        </q-avatar>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-avatar @click="toggleRightDrawer" class="cursor-pointer">
+          <img src="https://cdn.quasar.dev/img/avatar.png" />
+        </q-avatar>
       </q-toolbar>
+      <q-bar class="fit q-pa-xs">
+        <div
+          class="row text-center"
+          :class="{ column: $q.screen.lt.sm }"
+          style="margin: 0 auto"
+        >
+          <div class="cursor-pointer q-mx-md">Blockchain</div>
+          <div class="cursor-pointer q-mx-md">Trading</div>
+          <div class="cursor-pointer q-mx-md">App Development</div>
+        </div>
+      </q-bar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Essential Links </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+    <q-drawer v-model="rightDrawerOpen" side="right" overlay bordered>
+      <RightDrawer />
     </q-drawer>
 
     <q-page-container>
@@ -37,58 +42,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import EssentialLink, {
-  EssentialLinkProps,
-} from 'components/EssentialLink.vue';
+import RightDrawer from 'src/components/right-drawer/right-drawer.vue';
 
-const essentialLinks: EssentialLinkProps[] = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
-];
+const rightDrawerOpen = ref(false);
 
-const leftDrawerOpen = ref(false);
-
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
+function toggleRightDrawer() {
+  rightDrawerOpen.value = !rightDrawerOpen.value;
 }
 </script>

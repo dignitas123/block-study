@@ -1,1 +1,10 @@
 // app global css in SCSS form
+
+// Font
+@font-face {
+  font-family: 'Montague';
+  src: url(../fonts/Montague.ttf);
+}
+.montague-font {
+  font-family: 'Montague';
+}
