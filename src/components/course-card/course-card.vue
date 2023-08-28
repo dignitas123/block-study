@@ -9,7 +9,6 @@
         </div>
       </div>
       <q-rating
-        flat
         :model-value="stars"
         color="primary"
         :max="5"
